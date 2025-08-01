@@ -95,7 +95,7 @@ else:
         )
     # Dashboard metrikleri
     st.subheader("Dashboard Metrics")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     total_groups = len(df_sorted)
     multi_source_groups = len(df_sorted[df_sorted['source_count'] > 1])
     avg_confidence = df_sorted['importance_confidence'].mean() if not df_sorted.empty else 0
@@ -103,8 +103,7 @@ else:
 
     col1.metric("📰 News Groups", f"{total_groups}")
     col2.metric("🔗 Multi-Source Groups", f"{multi_source_groups}")
-    col3.metric("📊 Avg. Confidence", f"{avg_confidence:.2f}")
-    col4.metric("🗞️ Total Sources", f"{total_authors}")
+    col3.metric("🗞️ Total Sources", f"{total_authors}")
     st.divider()
     # Ana haber listesi
     st.subheader(f"Top News Stories from the Last {hours_filter} Hours")
