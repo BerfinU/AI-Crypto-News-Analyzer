@@ -1,157 +1,164 @@
-# Installation & Setup Guide
+# Kurulum ve Ayar Rehberi
 
-This guide contains all the steps needed to set up and run the project from scratch on your computer.
+Bu rehber, projeyi kendi bilgisayarınızda sıfırdan kurup çalıştırmak için gereken tüm adımları içerir.
 
-## Prerequisites
+## Gereksinimler
 
-- **Python** (version 3.9 or higher recommended)
-- **pip** (Python package manager)
+- **Python** (versiyon 3.9 veya üstü önerilir)
+- **pip** (Python paket yöneticisi)
 
-## Step 1: Installation
+## Adım 1: Kurulum
 
-### 1. Get Project Files
-Download/clone the project files to a folder on your computer.
+### 1. Proje Dosyalarını Alın
+Proje dosyalarını bilgisayarınızda bir klasöre indirin/kopyalayın.
 
 ```bash
 git clone https://github.com/BerfinU/ai-crypto-news-analyzer.git
 cd ai-crypto-news-analyzer
 ```
 
-### 2. Create Virtual Environment
-This isolates the project's libraries from other projects on your system. Open terminal in the project root directory and run:
+### 2. Sanal Ortam Oluşturun
+Bu, projenin kütüphanelerini sisteminizdeki diğer projelerden izole tutar. Terminali proje ana dizininde açın ve çalıştırın:
 
 ```bash
 python -m venv venv
 ```
 
-### 3. Activate Virtual Environment
+### 3. Sanal Ortamı Aktive Edin
 
-**Windows:**
+**Windows'ta:**
 ```bash
 venv\Scripts\activate
 ```
 
-**macOS/Linux:**
+**macOS/Linux'ta:**
 ```bash
 source venv/bin/activate
 ```
 
-### 4. Install Required Packages
-All libraries needed to run the main application are listed in this file:
+### 4. Gerekli Paketleri Yükleyin
+Projenin ana uygulamasını çalıştırmak için gereken tüm kütüphaneler bu dosyada listelenmiştir:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Install Playwright Browsers
-This step is **mandatory** for the scraper to work:
+### 5. Playwright Tarayıcılarını İndirin
+Bu adım, veri toplayıcının (scraper) çalışabilmesi için **zorunludur**:
 
 ```bash
 pip install playwright
 playwright install
 ```
 
-## Step 2: Configuration
+## Adım 2: Konfigürasyon
 
-### 1. Set Up API Key
-Create a text file named `.env` in the project root directory. Paste your Gemini API key from Google AI Studio as follows:
+### 1. API Anahtarını Ayarlayın
+Proje ana dizininde `.env` adında bir metin dosyası oluşturun. İçine, Google AI Studio'dan aldığınız Gemini API anahtarınızı aşağıdaki gibi yapıştırın:
 
 ```env
-GOOGLE_API_KEY="AIzaSy...YOUR_API_KEY_HERE"
+GOOGLE_API_KEY="AIzaSy...SİZİN_ANAHTARINIZ"
 ```
 
-### 2. Configure General Settings
-Open the `config.yaml` file in the `config/` folder with a text editor and fill in the following fields according to your setup:
+### 2. Genel Ayarları Yapılandırın
+`config/` klasöründeki `config.yaml` dosyasını bir metin düzenleyici ile açın ve aşağıdaki alanları kendinize göre doldurun:
 
-#### Model Configuration:
-- **`model -> classifier_path`**: You must write the full path to where you placed the trained classification model (`crypto_model_finetuned` folder) that was provided to you.
+#### Model Ayarları:
+- **`model -> classifier_path`**: Size verdiğim, eğitilmiş sınıflandırma modelini (`crypto_model_finetuned` klasörü) koyduğunuz yerin tam yolunu buraya yazmalısınız.
 
-**Example:**
+**Örnek:**
 ```yaml
 model:
-  classifier_path: "C:/Users/Berfin/Desktop/Project/crypto_model_finetuned"
+  classifier_path: "C:/Users/Berfin/Desktop/Proje/crypto_model_finetuned"
 ```
 
-#### Telegram Configuration:
+#### Telegram Ayarları:
 ```yaml
 telegram:
-  bot_token: "YOUR_BOT_TOKEN_FROM_BOTFATHER"
-  chat_id: "YOUR_CHANNEL_OR_GROUP_ID"  # Usually a negative number
+  bot_token: "BOTFATHER_DAN_ALDIGINIZ_TOKEN"
+  chat_id: "KANAL_VEYA_GRUP_ID_SI"  # Genellikle negatif bir sayıdır
 ```
 
-## Step 3: Running the Application
+## Adım 3: Çalıştırma
 
-### 1. Create Database (First Time Only)
-If you're running the project for the first time, run the following command **only once** to create the `news.db` file and necessary tables:
+### 1. Veritabanını İlk Kez Oluşturun
+Eğer projeyi ilk defa çalıştırıyorsanız, aşağıdaki komutu **sadece bir kez** çalıştırarak `news.db` dosyasını ve gerekli tabloları oluşturun:
 
 ```bash
 python create_db.py
 ```
 
-### 2. Start Main System (Scheduler)
-This command starts the data collection and processing loop. You must keep this terminal open:
+### 2. Ana Sistemi Başlatın (Scheduler)
+Bu komut, veri çekme ve işleme döngüsünü başlatır. Bu terminali açık bırakmalısınız:
 
 ```bash
 python scheduler.py
 ```
 
-You will see logs starting to flow on the screen. This means the system is running.
+Ekranda logların akmaya başladığını göreceksiniz. Bu, sistemin çalıştığı anlamına gelir.
 
-### 3. View Dashboard
-- Open a **new** terminal window
-- Activate the virtual environment again (`venv\Scripts\activate`)
-- Enter the following command to start the Streamlit interface:
+### 3. Dashboard'u Görüntüleyin
+- **Yeni bir** terminal penceresi açın
+- Aynı şekilde sanal ortamı tekrar aktive edin (`venv\Scripts\activate`)
+- Streamlit arayüzünü başlatmak için aşağıdaki komutu girin:
 
 ```bash
 streamlit run app.py
 ```
 
-The dashboard will automatically open in your browser at `http://localhost:8501` where you can view the dashboard.
+Otomatik olarak tarayıcınızda `http://localhost:8501` adresinde bir sekme açılacak ve dashboard'u görebileceksiniz.
 
-## Quick Start Commands
+## Hızlı Başlangıç Komutları
 
-After initial setup, you only need these commands to run the project:
+İlk kurulumdan sonra, projeyi çalıştırmak için sadece şu komutları kullanmanız yeterli:
 
 ```bash
-# Terminal 1 - Backend
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+# Terminal 1 - Arka Plan Sistemi
+source venv/bin/activate  # Windows'ta: venv\Scripts\activate
 python scheduler.py
 
 # Terminal 2 - Dashboard  
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+source venv/bin/activate  # Windows'ta: venv\Scripts\activate
 streamlit run app.py
 ```
 
-## Troubleshooting
+## Sorun Giderme
 
-### Common Issues:
+### Yaygın Sorunlar:
 
-**Virtual environment activation fails:**
-- Make sure you're in the project root directory
-- Check Python installation
+**Sanal ortam aktive edilmiyor:**
+- Proje ana dizininde olduğunuzdan emin olun
+- Python kurulumunu kontrol edin
 
-**Playwright installation fails:**
-- Try running: `pip install --upgrade pip`
-- Then retry: `pip install playwright && playwright install`
+**Playwright kurulum hatası:**
+- Şunu deneyin: `pip install --upgrade pip`
+- Sonra tekrar: `pip install playwright && playwright install`
 
-**Model path error:**
-- Ensure the `crypto_model_finetuned` folder exists
-- Update the full path in `config/config.yaml`
+**Model yolu hatası:**
+- `crypto_model_finetuned` klasörünün var olduğundan emin olun
+- `config/config.yaml` dosyasında tam yolu güncelleyin
 
-**Dashboard doesn't load:**
-- Check if scheduler is running first
-- Ensure database was created with `python create_db.py`
+**Dashboard yüklenmiyor:**
+- Önce scheduler'ın çalıştığını kontrol edin
+- Veritabanının `python create_db.py` ile oluşturulduğundan emin olun
 
-## Project Structure
+## Proje Yapısı
 
 ```
 ai-crypto-news-analyzer/
 ├── app.py                 # Streamlit dashboard
-├── scheduler.py           # Main automation script
-├── create_db.py          # Database initialization
-├── requirements.txt      # Python dependencies
-├── .env                  # API keys (create this)
+├── scheduler.py           # Ana otomasyon scripti
+├── create_db.py          # Veritabanı başlatma
+├── requirements.txt      # Python bağımlılıkları
+├── .env                  # API anahtarları (oluşturun)
 ├── config/
-│   └── config.yaml      # Configuration file
-└── crypto_model_finetuned/  # AI model (add this)
+│   └── config.yaml      # Konfigürasyon dosyası
+└── crypto_model_finetuned/  # AI modeli (ekleyin)
 ```
+
+## Ek Notlar
+
+- İlk çalıştırmada sistem birkaç dakika sürebilir
+- Scheduler çalışırken terminal penceresini kapatmayın
+- Dashboard'da veriler gerçek zamanlı güncellenir
+- Herhangi bir sorun yaşarsanız logları kontrol edin
