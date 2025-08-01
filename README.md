@@ -56,7 +56,7 @@ playwright install
 ### Hazır Eğitilmiş Model:
 Projenin çalışması için eğitilmiş BERT tabanlı sınıflandırma modeli gereklidir:
 
-**📥 Model İndirme Linki:** [Google Drive'dan İndirin](GOOGLE_DRIVE_LINKINIZI_BURAYA_YAPIŞTIRIN)
+**📥 Model İndirme Linki:** [Google Drive'dan İndirin](https://drive.google.com/file/d/1bgpQUT6FihQwgmBDWhPdcKqlLh5Az8mz/view?usp=drive_link)
 
 ### Model Kurulum Adımları:
 
