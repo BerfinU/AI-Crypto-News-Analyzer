@@ -79,7 +79,7 @@ Projenin çalışması için eğitilmiş BERT tabanlı sınıflandırma modeli g
 #### Terminal ile İndirme (İsteğe Bağlı):
 ```bash
 # Model dosyasını direkt indirin
-curl -L "GOOGLE_DRIVE_DIRECT_LINK" -o crypto_model_finetuned.zip
+curl -L "https://drive.google.com/file/d/1bgpQUT6FihQwgmBDWhPdcKqlLh5Az8mz/view?usp=drive_link" -o crypto_model_finetuned.zip
 
 # Çıkarın
 unzip crypto_model_finetuned.zip
@@ -93,7 +93,7 @@ rm crypto_model_finetuned.zip
 - **Sınıflar:** Important, Medium, Unimportant
 - **Dil:** İngilizce kripto haberleri
 - **Dosya Boyutu:** ~400MB
-- **Accuracy:** %87+
+- **Accuracy:** %80+
 
 ## Adım 3: Model Eğitimi (İsteğe Bağlı)
 
@@ -134,13 +134,12 @@ model:
 - Yol, işletim sisteminize göre değişir:
   - **Windows:** `C:\Users\Berfin\Desktop\ai-crypto-news-analyzer\crypto_model_finetuned`
   - **Mac/Linux:** `/Users/berfin/Desktop/ai-crypto-news-analyzer/crypto_model_finetuned`
-- Yolda Türkçe karakter OLMAMALI
 
 #### Telegram Ayarları:
 ```yaml
 telegram:
   bot_token: "BOTFATHER_DAN_ALDIGINIZ_TOKEN"
-  chat_id: "KANAL_VEYA_GRUP_ID_SI"  # Genellikle negatif bir sayıdır
+  chat_id: "KANAL_VEYA_GRUP_ID_SI"
 ```
 
 ## Adım 4: Çalıştırma
