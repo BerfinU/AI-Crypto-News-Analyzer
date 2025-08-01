@@ -51,7 +51,63 @@ pip install playwright
 playwright install
 ```
 
-## Adım 2: Konfigürasyon
+## Adım 2: AI Modelini İndirin
+
+### Hazır Eğitilmiş Model:
+Projenin çalışması için eğitilmiş BERT tabanlı sınıflandırma modeli gereklidir:
+
+**📥 Model İndirme Linki:** [Google Drive'dan İndirin](GOOGLE_DRIVE_LINKINIZI_BURAYA_YAPIŞTIRIN)
+
+### Model Kurulum Adımları:
+
+#### Manuel İndirme:
+1. **Yukarıdaki linke tıklayın**
+2. **"crypto_model_finetuned.zip"** dosyasını indirin
+3. **Proje ana klasörüne çıkarın**
+4. **Klasör yapısı şöyle olmalı:**
+   ```
+   ai-crypto-news-analyzer/
+   ├── crypto_model_finetuned/
+   │   ├── pytorch_model.bin
+   │   ├── config.json
+   │   ├── tokenizer.json
+   │   └── diğer model dosyaları...
+   ├── app.py
+   └── diğer proje dosyaları...
+   ```
+
+#### Terminal ile İndirme (İsteğe Bağlı):
+```bash
+# Model dosyasını direkt indirin
+curl -L "GOOGLE_DRIVE_DIRECT_LINK" -o crypto_model_finetuned.zip
+
+# Çıkarın
+unzip crypto_model_finetuned.zip
+
+# ZIP dosyasını silin (isteğe bağlı)
+rm crypto_model_finetuned.zip
+```
+
+### Model Hakkında:
+- **Model Türü:** BERT-based Fine-tuned Classifier
+- **Sınıflar:** Important, Medium, Unimportant
+- **Dil:** İngilizce kripto haberleri
+- **Dosya Boyutu:** ~400MB
+- **Accuracy:** %87+
+
+## Adım 3: Model Eğitimi (İsteğe Bağlı)
+
+### Kendi Modelinizi Eğitmek İsterseniz:
+Projede `crypto_news_model_finetuning.ipynb` dosyası bulunmaktadır. Bu notebook ile kendi AI modelinizi eğitebilirsiniz:
+
+1. **Google Colab'a Yükleyin**: Notebook dosyasını Google Colab'a yükleyin
+2. **Veri Setinizi Hazırlayın**: Kripto haberleri içeren CSV dosyanızı hazırlayın
+3. **Notebook'u Çalıştırın**: Adım adım hücreleri çalıştırarak modelinizi eğitin
+4. **Modeli İndirin**: Eğitim tamamlandığında modeli bilgisayarınıza indirin
+
+**Not:** Model eğitimi birkaç saat sürebilir ve güçlü bir GPU gerektirir. Bu nedenle Google Colab önerilir.
+
+## Adım 4: Konfigürasyon
 
 ### 1. API Anahtarını Ayarlayın
 Proje ana dizininde `.env` adında bir metin dosyası oluşturun. İçine, Google AI Studio'dan aldığınız Gemini API anahtarınızı aşağıdaki gibi yapıştırın:
@@ -64,13 +120,21 @@ GOOGLE_API_KEY="AIzaSy...SİZİN_ANAHTARINIZ"
 `config/` klasöründeki `config.yaml` dosyasını bir metin düzenleyici ile açın ve aşağıdaki alanları kendinize göre doldurun:
 
 #### Model Ayarları:
-- **`model -> classifier_path`**: Size verdiğim, eğitilmiş sınıflandırma modelini (`crypto_model_finetuned` klasörü) koyduğunuz yerin tam yolunu buraya yazmalısınız.
+- **`model -> classifier_path`**: İndirdiğiniz model klasörünün tam yolunu buraya yazın.
 
 **Örnek:**
 ```yaml
 model:
-  classifier_path: "C:/Users/Berfin/Desktop/Proje/crypto_model_finetuned"
+  classifier_path: "/Users/berfin/Desktop/ai-crypto-news-analyzer/crypto_model_finetuned"
+  embedding_model: "all-MiniLM-L6-v2"
 ```
+
+**⚠️ Önemli Notlar:**
+- Model klasörü mutlaka `crypto_model_finetuned` adında olmalı
+- Yol, işletim sisteminize göre değişir:
+  - **Windows:** `C:\Users\Berfin\Desktop\ai-crypto-news-analyzer\crypto_model_finetuned`
+  - **Mac/Linux:** `/Users/berfin/Desktop/ai-crypto-news-analyzer/crypto_model_finetuned`
+- Yolda Türkçe karakter OLMAMALI
 
 #### Telegram Ayarları:
 ```yaml
@@ -79,7 +143,7 @@ telegram:
   chat_id: "KANAL_VEYA_GRUP_ID_SI"  # Genellikle negatif bir sayıdır
 ```
 
-## Adım 3: Çalıştırma
+## Adım 4: Çalıştırma
 
 ### 1. Veritabanını İlk Kez Oluşturun
 Eğer projeyi ilk defa çalıştırıyorsanız, aşağıdaki komutu **sadece bir kez** çalıştırarak `news.db` dosyasını ve gerekli tabloları oluşturun:
@@ -149,12 +213,30 @@ ai-crypto-news-analyzer/
 ├── app.py                 # Streamlit dashboard
 ├── scheduler.py           # Ana otomasyon scripti
 ├── create_db.py          # Veritabanı başlatma
+├── crypto_news_model_finetuning.ipynb  # Model eğitim notebook'u
 ├── requirements.txt      # Python bağımlılıkları
 ├── .env                  # API anahtarları (oluşturun)
 ├── config/
 │   └── config.yaml      # Konfigürasyon dosyası
-└── crypto_model_finetuned/  # AI modeli (ekleyin)
+└── crypto_model_finetuned/  # AI modeli (eğitin veya alın)
 ```
+
+## Model Eğitimi Detayları
+
+### Notebook İçeriği (`crypto_news_model_finetuning.ipynb`):
+- **Veri Ön İşleme**: Kripto haber metinlerinin temizlenmesi
+- **BERT Fine-tuning**: Transformer tabanlı model eğitimi
+- **Sınıflandırma**: Important/Medium/Unimportant kategorileri
+- **Model Değerlendirme**: Accuracy, F1-score metrikleri
+- **Model Export**: Eğitilmiş modelin kaydedilmesi
+
+### Eğitim Süreci:
+1. Veri setinizi hazırlayın (CSV formatında)
+2. Google Colab'da notebook'u açın
+3. GPU runtime'ı etkinleştirin
+4. Hücreleri sırayla çalıştırın
+5. Eğitim tamamlandığında modeli indirin
+6. Model klasörünü proje dizinine yerleştirin
 
 ## Ek Notlar
 
