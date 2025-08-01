@@ -56,7 +56,7 @@ playwright install
 ### Hazır Eğitilmiş Model:
 Projenin çalışması için eğitilmiş BERT tabanlı sınıflandırma modeli gereklidir:
 
-**📥 Model İndirme Linki:** [Google Drive'dan İndirin](https://drive.google.com/file/d/1bgpQUT6FihQwgmBDWhPdcKqlLh5Az8mz/view?usp=drive_link)
+**Model İndirme Linki:** [Google Drive'dan İndirin](https://drive.google.com/file/d/1bgpQUT6FihQwgmBDWhPdcKqlLh5Az8mz/view?usp=drive_link)
 
 ### Model Kurulum Adımları:
 
@@ -92,7 +92,7 @@ rm crypto_model_finetuned.zip
 - **Model Türü:** BERT-based Fine-tuned Classifier
 - **Sınıflar:** Important, Medium, Unimportant
 - **Dil:** İngilizce kripto haberleri
-- **Dosya Boyutu:** ~400MB
+- **Dosya Boyutu:** ~450MB
 - **Accuracy:** %80+
 
 ## Adım 3: Model Eğitimi (İsteğe Bağlı)
@@ -128,12 +128,6 @@ model:
   classifier_path: "/Users/berfin/Desktop/ai-crypto-news-analyzer/crypto_model_finetuned"
   embedding_model: "all-MiniLM-L6-v2"
 ```
-
-**⚠️ Önemli Notlar:**
-- Model klasörü mutlaka `crypto_model_finetuned` adında olmalı
-- Yol, işletim sisteminize göre değişir:
-  - **Windows:** `C:\Users\Berfin\Desktop\ai-crypto-news-analyzer\crypto_model_finetuned`
-  - **Mac/Linux:** `/Users/berfin/Desktop/ai-crypto-news-analyzer/crypto_model_finetuned`
 
 #### Telegram Ayarları:
 ```yaml
@@ -185,25 +179,6 @@ source venv/bin/activate  # Windows'ta: venv\Scripts\activate
 streamlit run app.py
 ```
 
-## Sorun Giderme
-
-### Yaygın Sorunlar:
-
-**Sanal ortam aktive edilmiyor:**
-- Proje ana dizininde olduğunuzdan emin olun
-- Python kurulumunu kontrol edin
-
-**Playwright kurulum hatası:**
-- Şunu deneyin: `pip install --upgrade pip`
-- Sonra tekrar: `pip install playwright && playwright install`
-
-**Model yolu hatası:**
-- `crypto_model_finetuned` klasörünün var olduğundan emin olun
-- `config/config.yaml` dosyasında tam yolu güncelleyin
-
-**Dashboard yüklenmiyor:**
-- Önce scheduler'ın çalıştığını kontrol edin
-- Veritabanının `python create_db.py` ile oluşturulduğundan emin olun
 
 ## Proje Yapısı
 
