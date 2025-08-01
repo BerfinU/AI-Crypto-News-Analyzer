@@ -1,0 +1,13 @@
+python3 -m venv myenv
+source myenv/bin/activate
+deactivate
+----------------------------------------------------------------------------------
+pip install --upgrade pip
+pip install -r requirements.txt
+----------------------------------------------------------------------------------
+1. IDE Python Interpreter Ayarı:
+VS Code: Cmd + Shift + P → "Python: Select Interpreter" → myenv/bin/python seçin
+
+/Users/berfinummetoglu/Desktop/crypto_news/crypto_model_finetuned
+
+importlar gorunmuyorsa cmd ctrl p yapip Select Interpreter enter path /Users/berfinummetoglu/Desktop/Labrus_copy/myenv/bin/python

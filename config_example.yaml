@@ -1,0 +1,29 @@
+database:
+  path: "news.db"
+
+twitter:
+  use_mock: false
+  accounts:
+    - "CoinDesk"
+    - "TheBlock__"
+    - "Cointelegraph"
+    - "DecryptMedia"
+    - "BitcoinMagazine"
+    - "WatcherGuru"
+    - "cryptonews"
+    - "coinbase"
+
+model:
+  classifier_path: "/path/to/your/crypto_model_finetuned"
+  embedding_model: "all-MiniLM-L6-v2"
+
+schedule:
+  scrape_interval_minutes: 5
+  scrape_limit: 15
+  grouping_interval_minutes: 10
+  daily_summary_time: "09:00"
+
+telegram:
+  bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
+  chat_id: "YOUR_TELEGRAM_CHAT_ID"
+  notification_threshold: 0.8
