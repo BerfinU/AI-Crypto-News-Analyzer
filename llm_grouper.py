@@ -129,3 +129,24 @@ class NewsGrouper:
             )
             
             logger.info(f"Improved grouping complete. {updated_count} groups updated, {new_count} new groups created.")
+
+
+if __name__ == "__main__":
+    import logging
+    import time
+    
+    # Scheduler ile aynı logging setup
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logger = logging.getLogger(__name__)
+    
+    logger.info("====== (2/3) NEWS GROUPING WITH LLM BEGINS ======")
+    start_time = time.time()
+    
+    try:
+        grouper = NewsGrouper(db_path="news.db")
+        grouper.process_and_group_news()
+        elapsed = time.time() - start_time
+        logger.info(f" LLM gruplama tamamlandı ({elapsed:.1f}s)")
+    except Exception as e:
+        elapsed = time.time() - start_time
+        logger.error(f" LLM gruplama hatası ({elapsed:.1f}s): {e}", exc_info=True)
