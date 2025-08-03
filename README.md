@@ -131,9 +131,8 @@ model:
 
 #### Telegram Ayarları:
 ```yaml
-telegram:
-  bot_token: "BOTFATHER_DAN_ALDIGINIZ_TOKEN"
-  chat_id: "KANAL_VEYA_GRUP_ID_SI"
+TELEGRAM_BOT_TOKEN=BOTFATHER_DAN_ALDIGINIZ_TOKEN
+TELEGRAM_CHAT_ID=KANAL_VEYA_GRUP_ID
 ```
 
 ## Adım 4: Çalıştırma
