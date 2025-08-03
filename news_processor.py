@@ -182,3 +182,21 @@ class BatchProcessor:
         if stats['total_processed'] > 0:
             logger.info(f"Batch processing complete. Processed {stats['total_processed']} tweets in {stats['batches']} batches.")
         return stats
+
+
+if __name__ == "__main__":
+    import logging
+    
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logger = logging.getLogger(__name__)
+    
+    logger.info("====== AI SINIFLANDIRMA ======")
+    
+    classifier = ImportanceClassifier("/Users/berfinummetoglu/Desktop/crypto_news/crypto_model_finetuned")
+    batch_processor = BatchProcessor(classifier, "news.db")
+    stats = batch_processor.process_unclassified(batch_size=50)
+    
+    if stats['total_processed'] > 0:
+        logger.info(f"✅ {stats['total_processed']} tweet AI ile sınıflandırıldı!")
+    else:
+        logger.info("❌ Sınıflandırılacak tweet bulunamadı!")
