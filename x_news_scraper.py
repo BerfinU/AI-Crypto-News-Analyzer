@@ -502,5 +502,36 @@ class MockTwitterScraper:
         return mock_tweets
 
 
-if __name__ == "__main__":
-    print(" Bu dosyayı direkt çalıştırmayın!")
+    import logging
+    import time
+    from db_manager import DBManager
+    
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logger = logging.getLogger(__name__)
+    
+    logger.info("====== TWEET ÇEKME VE KAYDETME ======")
+    
+    # CryptoTwitterScraper bu dosyada tanımlı
+    scraper = CryptoTwitterScraper()
+    tweets = scraper.fetch_recent_tweets(db_path="news.db", max_results=15)
+    
+    if not tweets:
+        logger.info("❌ Hiç tweet çekilemedi!")
+        exit()
+    
+    # Tweet'leri RAW olarak veritabanına kaydet
+    logger.info(f"📱 {len(tweets)} tweet çekildi, veritabanına kaydediliyor...")
+    
+    with DBManager("news.db") as db:
+        saved_count = 0
+        for tweet in tweets:
+            # AI sınıflandırması olmadan kaydet
+            tweet['importance_label'] = None
+            tweet['importance_confidence'] = None  
+            tweet['embedding'] = None
+            
+            row_id = db.insert_news(tweet)
+            if row_id > 0:
+                saved_count += 1
+    
+    logger.info(f"✅ {saved_count} tweet veritabanına kaydedildi!")
