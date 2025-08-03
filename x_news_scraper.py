@@ -500,7 +500,8 @@ class MockTwitterScraper:
                 'metrics': {'likes': random.randint(10, 100), 'retweets': random.randint(5, 50)}
             })
         return mock_tweets
-
+        
+if __name__ == "__main__":
 
     import logging
     import time
