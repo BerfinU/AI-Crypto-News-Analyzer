@@ -202,3 +202,39 @@ def run_telegram_notifications(bot_token: str, chat_id: str, db_path: str = "new
     finally:
         # Event loop'u temizle
         loop.close()
+
+
+if __name__ == "__main__":
+    import logging
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logger = logging.getLogger(__name__)
+    
+    logger.info("====== (3/3) TELEGRAM NOTIFICATIONS ARE BEING SENT ======")
+    
+    # Scheduler'daki ayarlarla aynı
+    bot_token = os.getenv('TELEGRAM_BOT_TOKEN', '')
+    chat_id = os.getenv('TELEGRAM_CHAT_ID', '')
+    
+    if not bot_token or not chat_id:
+        logger.info(" Telegram bot token/chat ID tanımlanmamış, bildirimler atlanıyor")
+        exit()
+    
+    try:
+        notifications_sent = run_telegram_notifications(
+            bot_token=bot_token,
+            chat_id=chat_id,
+            db_path="news.db",
+            threshold=0.8
+        )
+        
+        if notifications_sent > 0:
+            logger.info(f" {notifications_sent} Telegram bildirimi gönderildi")
+        else:
+            logger.info(" Gönderilecek yeni bildirim bulunamadı")
+            
+    except Exception as e:
+        logger.error(f" Telegram bildirimi hatası: {e}")
