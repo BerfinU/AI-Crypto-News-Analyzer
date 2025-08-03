@@ -21,7 +21,7 @@ cd ai-crypto-news-analyzer
 Bu, projenin kütüphanelerini sisteminizdeki diğer projelerden izole tutar. Terminali proje ana dizininde açın ve çalıştırın:
 
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 
 ### 3. Sanal Ortamı Aktive Edin
@@ -142,14 +142,14 @@ telegram:
 Eğer projeyi ilk defa çalıştırıyorsanız, aşağıdaki komutu **sadece bir kez** çalıştırarak `news.db` dosyasını ve gerekli tabloları oluşturun:
 
 ```bash
-python create_db.py
+python3 create_db.py
 ```
 
 ### 2. Ana Sistemi Başlatın (Scheduler)
 Bu komut, veri çekme ve işleme döngüsünü başlatır. Bu terminali açık bırakmalısınız:
 
 ```bash
-python scheduler.py
+python3 scheduler.py
 ```
 
 Ekranda logların akmaya başladığını göreceksiniz. Bu, sistemin çalıştığı anlamına gelir.
