@@ -6,6 +6,8 @@ from db_manager import DBManager
 from datetime import datetime, timedelta
 
 import google.generativeai as genai
+from dotenv import load_dotenv
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
